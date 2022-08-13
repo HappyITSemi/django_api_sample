@@ -1,0 +1,4 @@
+
+INSERT INTO action_code (id, action_code, tel_on, tel_message, mail_on, mail_message, created_at, updated_at, tel_list) VALUES (1, 'B01', 1, 'tel-message', 1, 'mail-message', '1660434120000', '1660434120000', '"09022223333","08044445555","07066667777"');
+INSERT INTO action_code (id, action_code, tel_on, tel_message, mail_on, mail_message, created_at, updated_at, tel_list) VALUES (2, 'T01', 1, 'tel-message', 0, 'mail-message', '1660434120000', '1660434120000', '"09022223333","08044445555","07066667777"');
+INSERT INTO action_code (id, action_code, tel_on, tel_message, mail_on, mail_message, created_at, updated_at, tel_list) VALUES (3, 'M01', 0, 'tel-message', 1, 'mail-message', '1660434120000', '1660434120000', '"09022223333"');
