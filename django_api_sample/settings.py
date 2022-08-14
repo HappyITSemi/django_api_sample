@@ -32,7 +32,13 @@ INSTALLED_APPS = [
     'action_code.apps.ActionCodeConfig',
     'apiv1.apps.Apiv1Config',
     'apiv2.apps.Apiv2Config',
+
+    'django_celery_results',
 ]
+
+CELERY_BROKER_URL = "redis://localhost:6379"  # ブローカー
+CELERY_RESULT_BACKEND = "django-db"         # 結果はdjango指定のDBに保存。
+CELERY_TASK_TRACK_STARTED = True            # taskが開始状態になったことを確認できるための設定（後述）
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

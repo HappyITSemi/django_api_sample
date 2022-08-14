@@ -1,5 +1,78 @@
+---------------------------------------------
+■立ち上げ
+■djangoアプリケーションの実行
+$python manage.py makemigrations # migrationファイルを作成（必要なら
+$python manage.py migrate # migrate実行
+$python manage.py rumserver # アプリケーション実行
+-----------------
+■redis立ち上げ
+
+# redis-server
+
+-----------------
+$ redis-cli --version
+$ redis-server --version
+-----------------
+celery立ち上げ
+manage.pyがあるディレクトリにcdして以下コマン
 
 
+$celery -A myapp worker --concurrency=1 -l info
+---------------------------------------------
+【Server Install】
+Django: https://www.djangoproject.com/
+Celery: https://docs.celeryproject.org/en/stable/index.html
+Redis:  https://docs.redis.com/latest/index.html
+-------------------
+環境
+python:
+redis:
+-------------------
+#celeryのインストール
+pip install celery
+pip install django-celery-results
+-------------------
+#Redisのインストール
+brew install redis-server
+pip install django-redis
+-------------------
+[celeryの動作検証]-------------------
+
+[redisの動作検証]-------------------
+単発で起動する場合   ・Redis をバックグランドサービスとしない場合は、
+redis-server /usr/local/etc/redis.conf コマンドで起動します。
+
+$ redis-server /usr/local/etc/redis.conf
+Redis サーバーの停止   ・Redis サーバーを停止するには、Redis クライアントで接続して停止します。
+
+$ redis-cli shutdown
+・もしくは Redis サーバーにログイン済みの場合は、shutdown と入力すると停止できます。
+(今 Redis を始めたばかりの人は「ログイン？」という状態でしょうから、上のコマンドで停止しましょう。)
+
+127.0.0.1:6379> shutdown
+-------------------
+■settings.py
+INSTALLED_APPS = [
+    ...
+    'django_celery_results', # 追加
+]
+-------------------
+CELERY_BROKER_URL = "redis://localhost:6379  # [redis host]:6379" # ブローカー-redis
+CELERY_RESULT_BACKEND = "django-db" # 結果はdjango指定のDBに保存
+CELERY_TASK_TRACK_STARTED = True # taskが開始状態になったことを確認できるための設定（後述）
+
+[flower]
+
+【Start Project】
 django-admin startproject bookProject
-
 python manage.py startapp xxxx
+
+
+インストールされたファイル
+　最後にインストールされた Redis のファイルの位置を確認しましょう。
+
+ファイル	説明
+/usr/local/etc/redis.conf	Redis の動作を設定する設定ファイル
+/usr/local/bin/redis-cli	Redis クライアントへのショートカット
+/usr/local/bin/redis-server	Redis サーバーへのショートカット
+/usr/local/Cellar/redis	インストールした Redis の実体はこちらのディレクトリにインストールされている
